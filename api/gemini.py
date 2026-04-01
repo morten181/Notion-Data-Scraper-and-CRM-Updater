@@ -179,7 +179,7 @@ def run_full_staff_search(base_url):
        - 'COO', 'Chief Operating Officer'
        - 'CIO', 'Chief Information Officer'
        - 'CTO', 'Chief Technology Officer'
-       - 'Managing Director'
+       - 'Director'
        - 'Founder'
 
     2. DEVELOPMENT / TECHNOLOGY:
