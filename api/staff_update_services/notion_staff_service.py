@@ -34,7 +34,7 @@ def find_staff_page_by_name_and_role(
         filters = []
 
         if name:
-            filters.append({"property": "Name", "title": {"equals": name}})
+            filters.append({"property": "Nimi", "title": {"equals": name}})
 
         if role:
             filters.append({"property": "Amet", "rich_text": {"contains": role}})
@@ -66,7 +66,7 @@ def map_staff_to_properties(
     Maps staff member data to flat Notion property dictionary.
     """
     properties_data = {
-        "Name": staff_member.get("name"),
+        "Nimi": staff_member.get("name"),
         "Amet": staff_member.get("role"),
         "E-mail": staff_member.get("email") if staff_member.get("email") else None,
         "Tel. nr": staff_member.get("phone") if staff_member.get("phone") else None,
@@ -90,7 +90,7 @@ def build_notion_properties(
         if prop_value is None:
             continue
 
-        if prop_name == "Name":
+        if prop_name == "Nimi":
             notion_properties[prop_name] = {
                 "title": [{"text": {"content": prop_value}}]
             }
@@ -180,7 +180,7 @@ def sync_staff_data(
                     existing_flat_data = extract_notion_properties_for_comparison(
                         existing_role_page
                     )
-                    existing_name = existing_flat_data.get("Name")
+                    existing_name = existing_flat_data.get("Nimi")
 
                     if existing_name and existing_name != person_name:
                         # Different person with same role: mark previous holder as (endine), then add new
@@ -250,8 +250,8 @@ def extract_notion_properties_for_comparison(page: Dict[str, Any]) -> Dict[str, 
     properties = page.get("properties", {})
     extracted = {}
 
-    name_prop = properties.get("Name", {})
-    extracted["Name"] = (
+    name_prop = properties.get("Nimi", {})
+    extracted["Nimi"] = (
         name_prop["title"][0]["plain_text"]
         if name_prop.get("type") == "title" and name_prop.get("title")
         else None
